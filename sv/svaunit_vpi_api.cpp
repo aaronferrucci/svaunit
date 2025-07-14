@@ -129,14 +129,20 @@ void set_test_name_to_vpi_dpi(char * crt_test_name) {
  * a_string : the string to be converted
  * return the converted char*
  */
-char * get_char_from_string(string a_string) {
-	char **a_string_c = new char *[1];
+// MSHA: char * getCStringFromCppString(string a_string) {
+// MSHA: 	char **a_string_c = new char *[1];
+// MSHA: 
+// MSHA: 	a_string_c[0] = new char[a_string.length() + 1];
+// MSHA: 
+// MSHA: 	strcpy(a_string_c[0], a_string.c_str());
+// MSHA: 
+// MSHA: 	return a_string_c[0];
+// MSHA: }
 
-	a_string_c[0] = new char[a_string.length() + 1];
-
-	strcpy(a_string_c[0], a_string.c_str());
-
-	return a_string_c[0];
+char* getCStringFromCppString(const string& a_string) {
+    char* ret = new char[a_string.length() + 1];
+    strcpy(ret, a_string.c_str());
+    return ret;
 }
 
 /* Control assertion using vpi_control function
@@ -293,9 +299,9 @@ void call_callback_dpi(char * crt_test_name) {
 
 	while (lof_cbs.size() > 0) {
 		pass_info_to_sv_dpi(crt_test_name,
-				get_char_from_string(lof_cbs[0].assertion_name),
-				get_char_from_string(lof_cbs[0].assertion_path),
-				get_char_from_string(lof_cbs[0].assertion_type),
+				getCStringFromCppString(lof_cbs[0].assertion_name),
+				getCStringFromCppString(lof_cbs[0].assertion_path),
+				getCStringFromCppString(lof_cbs[0].assertion_type),
 				lof_cbs[0].reason, lof_cbs[0].start_time, lof_cbs[0].cb_time);
 
 		lof_cbs.erase(lof_cbs.begin());
@@ -498,9 +504,9 @@ void register_assertions_dpi(int print_flag) {
 
 						//send information to SV
 						create_assertion_dpi(
-								get_char_from_string(assertion_name),
-								get_char_from_string(assertion_path),
-								get_char_from_string(assertion_type));
+								getCStringFromCppString(assertion_name),
+								getCStringFromCppString(assertion_path),
+								getCStringFromCppString(assertion_type));
 
 						put_callbacks_on_assertion(sva, print_flag);
 					}
