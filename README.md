@@ -1,29 +1,68 @@
-# svaunit
-SVAUnit is an UVM compliant package that simplify the creation of stimuli/checkers for validating SystemVerilog Assertions (SVA)
+# SVAUnit
 
+**SVAUnit** is a UVM-compliant verification framework designed to simplify the **creation of stimuli and checkers** for validating **SystemVerilog Assertions (SVA)**.
 
-You can see more details here:
-* https://www.amiq.com/consulting/2017/02/20/svaunit-3-2-release-is-available/
-* http://www.amiq.com/consulting/2015/06/30/new-version-of-svaunit-available/
-* http://www.amiq.com/consulting/2015/04/29/how-to-verify-systemverilog-assertions-with-svaunit/
+This project is a **revival and major refactor** of the original open-source [SVAUnit](https://github.com/amiq-consulting/svaunit) framework developed by AMIQ Consulting. Since **January 2025**, this version has been actively maintained, modernized, and extended with new features and a test-driven development focus.
 
+---
 
-## Project Status
+## 🔧 Features
+
+- ✅ UVM-compliant structure for test environments
+- ✅ Isolation of assertion behavior for unit-style testing
+- ✅ Works with commercial simulators like Questa, VCS, and Xcelium
+
+## 🔧 Upcoming Features
+
+- ✅ Simplified test authoring for SVA-based verification
+- ✅ Built-in stimulus and response API for assertion testing
+
+---
+
+## 📚 Background
+
+Original blog series by AMIQ Consulting:
+
+- [SVAUnit 3.2 Release](https://www.amiq.com/consulting/2017/02/20/svaunit-3-2-release-is-available/)
+- [New version announcement](https://www.amiq.com/consulting/2015/06/30/new-version-of-svaunit-available/)
+- [How to verify SystemVerilog Assertions with SVAUnit](https://www.amiq.com/consulting/2015/04/29/how-to-verify-systemverilog-assertions-with-svaunit/)
+
+---
+
+## 🚀 Getting Started
+
+> **Coming Soon:** Full documentation, example testbenches, and simulator setup instructions.
+
+You can explore the codebase, examples, and test suites in the `/src` and `/examples` directories.
+
+---
+
+## 📦 Installation
+
+This framework is intended to be used within a UVM-compatible SystemVerilog simulation environment.
+
+```sh
+# Clone the repository
+git clone https://github.com/your-handle/svaunit.git
+```
+
+## 👤 Maintainer
+
+**Muneeb Ulla Shariff** – Lead Contributor and Maintainer  
+📧 [muneebullashariff@gmail.com](mailto:muneebullashariff@gmail.com)  
+🌐 GitHub: [muneebullashariff@gmail.com](https://github.com/muneebullashariff)
+
+---
+
+## 🙌 Acknowledgements
+
+Thanks to the original authors at **AMIQ Consulting** for open-sourcing the foundation of this work.
+
+---
+
+## 📜 Copyright and License
 
 This project is a revival and major refactor of the original **SVAUnit** open-source framework.  
-Original foundation: [https://github.com/amiq-consulting/svaunit].
-
-Since [Jan 2025], this project has been actively worked, maintained and significantly extended by [Muneeb Ulla Shariff].
-
-### Maintainer
-[Muneeb Ulla Shariff] – Lead Contributor and Maintainer  
-Email: muneebullashariff@gmail.com  
-GitHub: [your-handle]
-
-
-## Copyright and License
-
-This project includes original work from the SVAUnit framework.
 Original foundation: [https://github.com/amiq-consulting/svaunit].
 
 Refactored, extended, and actively maintained by **Muneeb Ulla Shariff** since 2025.  
