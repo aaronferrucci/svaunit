@@ -38,10 +38,20 @@ interface basic_interface(input clk);
 	// Error signal
 	logic slverr;
 
+	// issue: sequences are not supported
+	// refactoring slverr_property to use the following sequence results in
+	// this runtime error:
+	//   # ** Fatal: (SIGABRT) Bad handle or reference.
+        //   #    Time: 0 ps  Iteration: 0  Process: /top/vpi_if/#INITIAL#95(#ublk#258272101#95) File: /svaunit/sv/svaunit_vpi_interface.sv
+        //   # Fatal error in Module top at /svaunit/sv/svaunit_vpi_interface.sv line 33
+	sequence any_deasserted;
+		!sel || !enable || !ready;
+	endsequence
+
 	// Property definition for valid slverr value when one of sel, enable, ready signal is de-asserted
 	property slverr_property;
 		@(posedge clk)
-			!sel || !enable || !ready |-> !slverr;
+			any_deasserted |-> !slverr;
 	endproperty
 	// Check that slverr is LOW when one of sel, enable or ready is LOW
 	SLVERR_SVA: assert property(slverr_property) else
