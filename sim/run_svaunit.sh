@@ -192,7 +192,7 @@ run_with_ius_test() {
 # Compile and run with QUESTA
 run_with_questa_test() {
     EXTRA_OPTIONS="-dpicpppath /usr/bin/g++"
-    EXTRA_OPTIONS=" ${EXTRA_OPTIONS} -assertdebug -assertcover -sva"
+    EXTRA_OPTIONS=" ${EXTRA_OPTIONS} -assertdebug -sva"
     if [ "$run_mode" = "interactive" ]; then
         rm -rf vsim_cmds.do
         touch vsim_cmds.do
@@ -227,7 +227,7 @@ run_with_questa_test() {
     
     echo "Running with EXTRA_OPTIONS: ${EXTRA_OPTIONS}"
     
-    vsim -${ARCH_BITS} -novopt ${top_name} -sv_seed ${seed} +UVM_TESTNAME=${test} +UVM_NO_RELNOTES +UVM_VERBOSITY=${uvm_verbosity} +nowarnTSCALE ${EXTRA_OPTIONS} 
+    vsim -${ARCH_BITS} ${top_name} -sv_seed ${seed} +UVM_TESTNAME=${test} +UVM_NO_RELNOTES +UVM_VERBOSITY=${uvm_verbosity} +nowarnTSCALE ${EXTRA_OPTIONS}
 }
 
 # Compile and run with VCS
