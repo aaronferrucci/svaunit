@@ -240,6 +240,9 @@ interface svaunit_vpi_interface();
             create($sformatf("property_%s", a_sva_name), null);
             property_info[property_info.size() - 1].create_new_sva(a_sva_name, a_sva_path, a_sva_type);
          end
+      end else if((a_sva_type == "vpiSequenceInst") || (a_sva_type == "vpiSequenceDecl")) begin
+         // Skip sequences as they are not supported by SVAUnit
+         `uvm_info("SVAUNIT", $sformatf("Skipping sequence: %s (sequences not supported)", a_sva_name), UVM_MEDIUM)
       end
    endfunction
 
@@ -264,6 +267,9 @@ interface svaunit_vpi_interface();
       end else if((a_sva_type == "vpiPropertyInst") || (a_sva_type == "vpiPropertyDecl")) begin
          update_sva_from_c(a_test_name, a_sva_name, a_sva_path, a_sva_type, a_reason, a_callback_time,
             property_info);
+      end else if((a_sva_type == "vpiSequenceInst") || (a_sva_type == "vpiSequenceDecl")) begin
+         // Skip sequences as they are not supported by SVAUnit
+         `uvm_info("SVAUNIT", $sformatf("Skipping sequence callback: %s (sequences not supported)", a_sva_name), UVM_MEDIUM)
       end
    endfunction
 

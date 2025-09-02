@@ -312,6 +312,13 @@ void call_callback_dpi(char * crt_test_name) {
  * assertion : handle to assertion
  */
 void put_callbacks_on_assertion(vpiHandle assertion, int print_flag) {
+	// Safety check for null assertion handle
+	if (assertion == NULL) {
+		if (print_flag == 1)
+			printf("Warning: NULL assertion handle encountered\n");
+		return;
+	}
+
 	string assertion_name = vpi_get_str(vpiName, assertion);
 	bool running_cadence = 0;
 
@@ -321,6 +328,15 @@ void put_callbacks_on_assertion(vpiHandle assertion, int print_flag) {
 #else
 	running_cadence = 0;
 #endif
+
+	// Skip sequences as they are not supported by SVAUnit
+	// Use string comparison instead of undefined constants
+	string assertion_type_str = vpi_get_str(vpiType, assertion);
+	if ((assertion_type_str == "vpiSequenceInst") || (assertion_type_str == "vpiSequenceDecl")) {
+		if (print_flag == 1)
+			printf("Skipping sequence: %s (sequences not supported)\n", assertion_name.c_str());
+		return;
+	}
 
 	if (print_flag == 1)
 		printf("Set callback on assertion: %s \n", assertion_name.c_str());
@@ -432,14 +448,15 @@ void get_interfaces(std::vector<vpiHandle> &lof_interface_handles,
 
 // DPI-C API used to find SVAs using VPI API
 void register_assertions_dpi(int print_flag) {
-	testSvScope = svGetScope();
+	try {
+		testSvScope = svGetScope();
 
-	svSetScope(testSvScope);
+		svSetScope(testSvScope);
 
-	register_sots_callback();
+		register_sots_callback();
 
-	if (print_flag)
-		printf("Register assertions!\n");
+		if (print_flag)
+			printf("Register assertions!\n");
 
 	// list of units where the interface can be instantiated
 	std::vector < vpiHandle > lof_assertions_units;
@@ -477,6 +494,13 @@ void register_assertions_dpi(int print_flag) {
 			if ((itr_sva = vpi_iterate(vpiAssertion,
 					lof_assertions_units[index])) != NULL) {
 				while ((sva = vpi_scan(itr_sva)) != NULL) {
+					// Safety check for null assertion handle
+					if (sva == NULL) {
+						if (print_flag)
+							printf("Warning: NULL assertion handle encountered during scan\n");
+						continue;
+					}
+
 					bool exists = 0;
 
 					for (int unsigned sva_index = 0;
@@ -491,11 +515,21 @@ void register_assertions_dpi(int print_flag) {
 					}
 
 					if (exists == 0) {
-						lof_assertions.push_back(sva);
-
 						assertion_path = vpi_get_str(vpiFullName, sva);
 						assertion_name = vpi_get_str(vpiName, sva);
 						assertion_type = vpi_get_str(vpiType, sva);
+
+						// Skip sequences as they are not supported by SVAUnit
+						// Use string comparison instead of undefined constants
+						string sva_type_str = vpi_get_str(vpiType, sva);
+						if ((sva_type_str == "vpiSequenceInst") || (sva_type_str == "vpiSequenceDecl")) {
+							if (print_flag)
+								printf("Skipping sequence: %s (sequences not supported)\n",
+										assertion_path.c_str());
+							continue;
+						}
+
+						lof_assertions.push_back(sva);
 
 						if (print_flag)
 							printf("Registering assertion: %s with type: %s\n",
@@ -513,6 +547,13 @@ void register_assertions_dpi(int print_flag) {
 				}
 			}
 		}
+	}
+	} catch (const std::exception& e) {
+		if (print_flag)
+			printf("Error during assertion registration: %s\n", e.what());
+	} catch (...) {
+		if (print_flag)
+			printf("Unknown error during assertion registration\n");
 	}
 }
 
