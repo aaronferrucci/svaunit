@@ -191,6 +191,7 @@ run_with_ius_test() {
 
 # Compile and run with QUESTA
 run_with_questa_test() {
+    EXTRA_OPTIONS="-dpicpppath /usr/bin/g++"
     EXTRA_OPTIONS=" ${EXTRA_OPTIONS} -assertdebug -assertcover -sva"
     if [ "$run_mode" = "interactive" ]; then
         rm -rf vsim_cmds.do
