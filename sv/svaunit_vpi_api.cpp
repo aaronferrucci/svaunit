@@ -558,6 +558,7 @@ PLI_INT32 sots_callback(p_cb_data cb_data) {
 	//printf("Detected cbNextSimTime -> crt_time: %d\n", crt_time.low);
 
 	register_eots_callback();
+	return(0);
 }
 
 // Executed on "End of time slot" callback from simulator
@@ -571,6 +572,7 @@ PLI_INT32 eots_callback(p_cb_data cb_data) {
 	register_sots_callback();
 
 	eots_flag = 1;
+	return(0);
 }
 
 // Register a callback on "Start of time slot"
@@ -589,6 +591,7 @@ PLI_INT32 register_sots_callback() {
 	cb_data_s.time = &time_s;
 	cb_data_s.value = NULL;
 	vpi_register_cb(&cb_data_s);
+	return(0);
 }
 
 // Register a callback on "End of time slot"
@@ -607,6 +610,7 @@ PLI_INT32 register_eots_callback() {
 	cb_data_s.time = &time_s;
 	cb_data_s.value = NULL;
 	vpi_register_cb(&cb_data_s);
+	return(0);
 }
 
 }
