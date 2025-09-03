@@ -505,29 +505,26 @@ void register_assertions_dpi(int print_flag) {
 
 					for (int unsigned sva_index = 0;
 							sva_index < lof_assertions.size(); sva_index++) {
-						string sva_name = vpi_get_str(vpiFullName, sva);
-						string crt_sva = vpi_get_str(vpiFullName,
-								lof_assertions[sva_index]);
-
+						PLI_BYTE8* s;
+						s = vpi_get_str(vpiFullName, sva);
+						string sva_name = s ? s : "";
+						s = vpi_get_str(vpiFullName, lof_assertions[sva_index]);
+						string crt_sva = s ? s : "";
 						if (sva_name.compare(crt_sva) == 0) {
 							exists = 1;
 						}
 					}
 
 					if (exists == 0) {
-						assertion_path = vpi_get_str(vpiFullName, sva);
-						assertion_name = vpi_get_str(vpiName, sva);
 						assertion_type = vpi_get_str(vpiType, sva);
-
-						// Skip sequences as they are not supported by SVAUnit
-						// Use string comparison instead of undefined constants
-						string sva_type_str = vpi_get_str(vpiType, sva);
-						if ((sva_type_str == "vpiSequenceInst") || (sva_type_str == "vpiSequenceDecl")) {
+						if ((assertion_type == "vpiSequenceInst") || (assertion_type == "vpiSequenceDecl")) {
 							if (print_flag)
 								printf("Skipping sequence: %s (sequences not supported)\n",
-										assertion_path.c_str());
+										assertion_type.c_str());
 							continue;
 						}
+						assertion_path = vpi_get_str(vpiFullName, sva);
+						assertion_name = vpi_get_str(vpiName, sva);
 
 						lof_assertions.push_back(sva);
 
