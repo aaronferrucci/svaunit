@@ -505,13 +505,13 @@ void register_assertions_dpi(int print_flag) {
 
 					for (int unsigned sva_index = 0;
 							sva_index < lof_assertions.size(); sva_index++) {
-						PLI_BYTE8* s;
-						s = vpi_get_str(vpiFullName, sva);
-						string sva_name = s ? s : "";
-						s = vpi_get_str(vpiFullName, lof_assertions[sva_index]);
-						string crt_sva = s ? s : "";
+						string crt_sva = vpi_get_str(vpiFullName, lof_assertions[sva_index]);
+						PLI_BYTE8* s = vpi_get_str(vpiFullName, sva);
+						if (s == NULL) break;
+						string sva_name = s;
 						if (sva_name.compare(crt_sva) == 0) {
 							exists = 1;
+							break;
 						}
 					}
 
