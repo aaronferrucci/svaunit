@@ -22,10 +22,9 @@ This project is a **revival and major refactor** of the original open-source [SV
 ## 📚 Background
 
 Original blog series by AMIQ Consulting:
-
-- [SVAUnit 3.2 Release](https://www.amiq.com/consulting/2017/02/20/svaunit-3-2-release-is-available/)
-- [New version announcement](https://www.amiq.com/consulting/2015/06/30/new-version-of-svaunit-available/)
-- [How to verify SystemVerilog Assertions with SVAUnit](https://www.amiq.com/consulting/2015/04/29/how-to-verify-systemverilog-assertions-with-svaunit/)
+- [SVAUnit 3.2 Release](https://www.consulting.amiq.com/2017/02/20/svaunit-3-2-release-is-available/)
+- [New version announcement](https://www.consulting.amiq.com/2015/06/30/new-version-of-svaunit-available/)
+- [How to verify SystemVerilog Assertions with SVAUnit](https://www.consulting.amiq.com/consulting/2015/04/29/how-to-verify-systemverilog-assertions-with-svaunit/)
 
 ---
 
