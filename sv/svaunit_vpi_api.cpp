@@ -154,7 +154,7 @@ void control_assertion_dpi(char * assertion_name, int control_type,
 		int sys_time) {
 
 	string assertion_type;
-	s_vpi_time *a_struct;
+	s_vpi_time a_struct;
 	int step_constant;
 	bool running_cadence = 0;
 
@@ -168,10 +168,10 @@ void control_assertion_dpi(char * assertion_name, int control_type,
 			&& ((control_type == vpiAssertionEnableStep)
 					|| (control_type == vpiAssertionDisableStep)))
 			|| (control_type == vpiAssertionKill)) {
-		a_struct->type = vpiSimTime;
-		a_struct->high = 0;
-		a_struct->low = 0;
-		a_struct->real = 0;
+		a_struct.type = vpiSimTime;
+		a_struct.high = 0;
+		a_struct.low = 0;
+		a_struct.real = 0;
 	}
 
 	if ((running_cadence == 0)
