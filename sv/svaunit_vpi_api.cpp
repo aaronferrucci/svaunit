@@ -223,8 +223,8 @@ PLI_INT32 assertion_callback(PLI_INT32 reason, p_vpi_time cb_time,
 		vpiHandle assertion, p_vpi_attempt_info info, PLI_BYTE8 *user_data) {
 
 	string casted_reason = "UNKNOWN";
-	int callback_time;
-	int start_time;
+	int callback_time = 0;
+	int start_time = 0;
 	string assertion_name = vpi_get_str(vpiName, assertion);
 	string assertion_path = vpi_get_str(vpiFullName, assertion);
 	string assertion_type = vpi_get_str(vpiType, assertion);
@@ -271,6 +271,8 @@ PLI_INT32 assertion_callback(PLI_INT32 reason, p_vpi_time cb_time,
 			start_time = (int) (info->attemptStartTime.real);
 		} else if (info->attemptStartTime.type == vpiSimTime) {
 			start_time = (int) (info->attemptStartTime.low);
+		} else {
+			start_time = callback_time;
 		}
 
 	} else {
