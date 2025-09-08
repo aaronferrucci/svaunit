@@ -105,6 +105,22 @@ extern void pass_info_to_sv_dpi(char *, char*, char *, char *, int, int, int);
  */
 extern void create_assertion_dpi(char *, char *, char *);
 
+// Additional function declarations to resolve -Wmissing_declarations warnings
+char* getCStringFromCppString(const string& a_string);
+void set_test_name_to_vpi_dpi(char * crt_test_name);
+void control_assertion_dpi(char * assertion_name, int control_type, int sys_time);
+void call_callback_dpi(char * crt_test_name);
+void register_assertions_dpi(int print_flag);
+void get_cover_statistics_dpi(char * cover_name,
+                             int * nof_attempts_failed_covered,
+                             int * nof_attempts_succeeded_covered);
+int dpi_check_flag();
+PLI_INT32 assertion_callback(PLI_INT32 reason, p_vpi_time cb_time,
+                            vpiHandle assertion, p_vpi_attempt_info info,
+                            PLI_BYTE8 *user_data);
+void put_callbacks_on_assertion(vpiHandle assertion, int print_flag);
+void get_interfaces(std::vector<vpiHandle> &lof_interface_handles,
+                   vpiHandle interface_top);
 //the SV scope saved at assertion registration. this is required in order to
 //set a scope once the assertion callbacks are ready to update information in SV
 svScope testSvScope;
